@@ -1,0 +1,27 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    kubernetesVersion = properties.kubernetesVersion,
+    provisioningState = properties.provisioningState,
+    powerState = properties.powerState.code,
+    fqdn = properties.fqdn,
+    privateFQDN = properties.privateFQDN,
+    nodeResourceGroup = properties.nodeResourceGroup,
+    enableRBAC = properties.enableRBAC,
+    dnsPrefix = properties.dnsPrefix
+| project 
+    clusterName,
+    resourceGroup,
+    location,
+    subscriptionId,
+    kubernetesVersion,
+    provisioningState,
+    powerState,
+    fqdn,
+    privateFQDN,
+    nodeResourceGroup,
+    enableRBAC,
+    dnsPrefix,
+    tags,
+    properties
