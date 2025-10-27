@@ -1,0 +1,17 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    kubernetesVersion = properties.kubernetesVersion,
+    nodeResourceGroup = properties.nodeResourceGroup,
+    skuTier = sku.tier,
+    totalNodeCount = array_length(properties.agentPoolProfiles),
+    networkPlugin = properties.networkProfile.networkPlugin,
+    enableRBAC = properties.enableRBAC,
+    enablePrivateCluster = properties.apiServerAccessProfile.enablePrivateCluster
+| summarize 
+    TotalClusters = count(),
+    ClustersByLocation = make_set(location),
+    ClustersByKubernetesVersion = make_set(kubernetesVersion),
+    ClustersByNetworkPlugin = make_set(networkPlugin)
+    by subscriptionId
