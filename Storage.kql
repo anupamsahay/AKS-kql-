@@ -1,0 +1,18 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    storageProfile = properties.storageProfile,
+    diskCSIDriver = properties.storageProfile.diskCSIDriver,
+    fileCSIDriver = properties.storageProfile.fileCSIDriver,
+    snapshotController = properties.storageProfile.snapshotController,
+    blobCSIDriver = properties.storageProfile.blobCSIDriver
+| project 
+    clusterName,
+    resourceGroup,
+    storageProfile,
+    diskCSIDriver,
+    fileCSIDriver,
+    snapshotController,
+    blobCSIDriver,
+    properties
