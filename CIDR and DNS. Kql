@@ -1,0 +1,16 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    azureMonitorProfile = properties.azureMonitorProfile,
+    metricsEnabled = properties.azureMonitorProfile.metrics.enabled,
+    metricsKubeStateMetrics = properties.azureMonitorProfile.metrics.kubeStateMetrics,
+    containerInsights = properties.azureMonitorProfile.containerInsights
+| project 
+    clusterName,
+    resourceGroup,
+    azureMonitorProfile,
+    metricsEnabled,
+    metricsKubeStateMetrics,
+    containerInsights,
+    properties
