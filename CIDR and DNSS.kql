@@ -1,0 +1,16 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    serviceCidr = properties.networkProfile.serviceCidr,
+    dnsServiceIP = properties.networkProfile.dnsServiceIP,
+    dockerBridgeCidr = properties.networkProfile.dockerBridgeCidr,
+    ipFamilies = properties.networkProfile.ipFamilies
+| project 
+    clusterName,
+    resourceGroup,
+    serviceCidr,
+    dnsServiceIP,
+    dockerBridgeCidr,
+    ipFamilies,
+    properties
