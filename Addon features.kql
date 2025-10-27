@@ -1,0 +1,24 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    httpApplicationRouting = properties.addonProfiles.httpApplicationRouting.enabled,
+    omsAgent = properties.addonProfiles.omsagent.enabled,
+    omsWorkspaceId = properties.addonProfiles.omsagent.config.logAnalyticsWorkspaceResourceID,
+    azurePolicy = properties.addonProfiles.azurepolicy.enabled,
+    azureKeyvaultSecretsProvider = properties.addonProfiles.azureKeyvaultSecretsProvider.enabled,
+    ingressApplicationGateway = properties.addonProfiles.ingressApplicationGateway.enabled,
+    openServiceMesh = properties.addonProfiles.openServiceMesh.enabled,
+    aciConnector = properties.addonProfiles.aciConnectorLinux.enabled
+| project 
+    clusterName,
+    resourceGroup,
+    httpApplicationRouting,
+    omsAgent,
+    omsWorkspaceId,
+    azurePolicy,
+    azureKeyvaultSecretsProvider,
+    ingressApplicationGateway,
+    openServiceMesh,
+    aciConnector,
+    properties
