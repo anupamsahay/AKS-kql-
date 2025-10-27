@@ -1,0 +1,26 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    identityType = identity.type,
+    principalId = identity.principalId,
+    tenantId = identity.tenantId,
+    userAssignedIdentities = identity.userAssignedIdentities,
+    aadProfile = properties.aadProfile,
+    enableAzureRBAC = properties.aadProfile.enableAzureRBAC,
+    aadManaged = properties.aadProfile.managed,
+    aadAdminGroupObjectIDs = properties.aadProfile.adminGroupObjectIDs,
+    disableLocalAccounts = properties.disableLocalAccounts
+| project 
+    clusterName,
+    resourceGroup,
+    identityType,
+    principalId,
+    tenantId,
+    userAssignedIdentities,
+    aadProfile,
+    enableAzureRBAC,
+    aadManaged,
+    aadAdminGroupObjectIDs,
+    disableLocalAccounts,
+    properties
