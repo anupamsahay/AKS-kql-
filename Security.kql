@@ -1,0 +1,24 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    enablePrivateCluster = properties.apiServerAccessProfile.enablePrivateCluster,
+    privateDNSZone = properties.apiServerAccessProfile.privateDNSZone,
+    authorizedIPRanges = properties.apiServerAccessProfile.authorizedIPRanges,
+    enablePodSecurityPolicy = properties.enablePodSecurityPolicy,
+    securityProfile = properties.securityProfile,
+    azureDefender = properties.securityProfile.defender,
+    workloadIdentity = properties.securityProfile.workloadIdentity,
+    imageCleaner = properties.securityProfile.imageCleaner
+| project 
+    clusterName,
+    resourceGroup,
+    enablePrivateCluster,
+    privateDNSZone,
+    authorizedIPRanges,
+    enablePodSecurityPolicy,
+    securityProfile,
+    azureDefender,
+    workloadIdentity,
+    imageCleaner,
+    properties
