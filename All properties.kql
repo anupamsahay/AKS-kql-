@@ -1,0 +1,17 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| project 
+    name,
+    id,
+    type,
+    location,
+    resourceGroup,
+    subscriptionId,
+    managedBy,
+    sku,
+    plan,
+    properties,
+    tags,
+    identity,
+    zones,
+    extendedLocation
