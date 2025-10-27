@@ -1,0 +1,5 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend kubernetesVersion = properties.kubernetesVersion
+| summarize ClusterCount = count() by kubernetesVersion, location
+| order by kubernetesVersion desc
