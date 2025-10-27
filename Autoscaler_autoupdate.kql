@@ -1,0 +1,16 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    autoScalerProfile = properties.autoScalerProfile,
+    autoUpgradeProfile = properties.autoUpgradeProfile,
+    upgradeChannel = properties.autoUpgradeProfile.upgradeChannel,
+    nodeOSUpgradeChannel = properties.autoUpgradeProfile.nodeOSUpgradeChannel
+| project 
+    clusterName,
+    resourceGroup,
+    autoScalerProfile,
+    autoUpgradeProfile,
+    upgradeChannel,
+    nodeOSUpgradeChannel,
+    properties
