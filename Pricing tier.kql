@@ -1,0 +1,13 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    skuName = sku.name,
+    skuTier = sku.tier
+| project 
+    clusterName,
+    resourceGroup,
+    location,
+    skuName,
+    skuTier,
+    properties
