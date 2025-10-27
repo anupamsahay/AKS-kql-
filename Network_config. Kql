@@ -1,0 +1,29 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    networkPlugin = properties.networkProfile.networkPlugin,
+    networkPolicy = properties.networkProfile.networkPolicy,
+    networkMode = properties.networkProfile.networkMode,
+    serviceCidr = properties.networkProfile.serviceCidr,
+    dnsServiceIP = properties.networkProfile.dnsServiceIP,
+    podCidr = properties.networkProfile.podCidr,
+    loadBalancerSku = properties.networkProfile.loadBalancerSku,
+    outboundType = properties.networkProfile.outboundType,
+    networkDataplane = properties.networkProfile.networkDataplane,
+    loadBalancerProfile = properties.networkProfile.loadBalancerProfile
+| project 
+    clusterName,
+    resourceGroup,
+    location,
+    networkPlugin,
+    networkPolicy,
+    networkMode,
+    serviceCidr,
+    dnsServiceIP,
+    podCidr,
+    loadBalancerSku,
+    outboundType,
+    networkDataplane,
+    loadBalancerProfile,
+    properties
