@@ -1,0 +1,16 @@
+resources
+| where type == "microsoft.containerservice/managedclusters"
+| extend 
+    clusterName = name,
+    kubeletIdentity = properties.identityProfile.kubeletidentity,
+    kubeletClientId = properties.identityProfile.kubeletidentity.clientId,
+    kubeletObjectId = properties.identityProfile.kubeletidentity.objectId,
+    kubeletResourceId = properties.identityProfile.kubeletidentity.resourceId
+| project 
+    clusterName,
+    resourceGroup,
+    kubeletIdentity,
+    kubeletClientId,
+    kubeletObjectId,
+    kubeletResourceId,
+    properties
